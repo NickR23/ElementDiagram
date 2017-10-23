@@ -139,15 +139,17 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		int i = 0;
 		System.out.println("Mouse location: ("+e.getX()+","+e.getY()+")");
 		
-		while(select = false) {
+		while(select == false) {
+			System.out.println("Selected: " + findElement(i));
+
 			if(grid[i].contains(e.getX(),e.getY())){
 				currentElement = i;
 				select = true;
-				System.out.println("Selected: " + findElement(i));
 			}
 			i++;
 
 		}
+		
 		
 	}
 
