@@ -1,6 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
+
 import java.lang.Math;
 public class DrawingComponent extends JPanel implements ActionListener{
 	
@@ -26,8 +28,10 @@ public class DrawingComponent extends JPanel implements ActionListener{
 	    setBackground(Color.BLACK);
 		g2d.setColor(Color.WHITE);
 		g2d.fillOval(150, 150, 50, 50);
+		
 		g2d.setColor(Color.YELLOW);
-		g2d.fillOval((int)ex, (int)ey, 5, 5);
+		Ellipse2D.Double electron = new Ellipse2D.Double(ex,ey,5,5);
+		g2d.fill(electron);
 		//init scene timer
 		worldT.start();
 		
