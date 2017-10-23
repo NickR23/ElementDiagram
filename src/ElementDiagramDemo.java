@@ -6,12 +6,7 @@ public class ElementDiagramDemo{
 		JFrame mainView = new JFrame("Element Visualizer");
 		
 		DrawingComponent DC = new DrawingComponent();
-		//loads all of the element data
-		try {
-			DC.dataLoad();
-		}catch(IOException e) {
-			System.out.println("Data failed to load");
-		}
+
 		mainView.add(DC);
 		mainView.setSize(1200, 800);
 		mainView.setVisible(true);

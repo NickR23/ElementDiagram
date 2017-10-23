@@ -12,12 +12,22 @@ import java.awt.event.MouseListener;
 public class DrawingComponent extends JPanel implements ActionListener, MouseListener 
 {
 
-	private Timer worldT = new Timer (100,this);
-	private float angle = 20;
-	private double ex = (int)(getWidth()/2)+675, ey = (int)(getHeight()/2)+225;
-	private int numOfElements = 2;
-	private int currentElement = 1;
-    private Element[] elements = new Element[numOfElements];
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Timer worldT;
+	private float angle;
+	private double ex,ey;
+	private int numOfElements;
+	private int currentElement;
+	private boolean select;
+	//Holds raw element data
+    private Element[] elements;
+    //Holds data for each rectangle in element selector
+    Rectangle[] grid;
+
 	File file = new File("Elements.txt");
 	
     public void dataLoad() throws IOException{
@@ -32,15 +42,36 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		inFile.close();
 		System.out.println("Data Loaded");
 		//init scene timer
-		worldT.start();
     }
     
 
-    
+    public DrawingComponent() {
+    	
+    		worldT  = new Timer (100,this);
+    		angle = 20;
+    		ex = (int)(getWidth()/2)+675;
+    		ey = (int)(getHeight()/2)+225;
+    		numOfElements = 2;
+    		currentElement = 0;
+    		select = false;
+    		elements = new Element[numOfElements];
+    		grid = new Rectangle[numOfElements];
+    		
+		//Adds a mouselistener to this panel
+		addMouseListener(this);
+		worldT.start();
+		//loads all of the element data
+		try {
+			dataLoad();
+		}catch(IOException e) {
+			System.out.println("Data failed to load");
+		}
+    }
 	//Paints to JFrame
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
+
 		//enables antialiasing and pure stroke
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	    g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
@@ -64,8 +95,26 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
         g2d.drawString("~By Nick Rich~", 12, 450);
         g2d.drawString("Window Size : "+getWidth()+"X"+getHeight(), 10, 465);
         g2d.drawString("Panel repaints every "+worldT.getDelay()+"ms",10,480);
+        
+        //draws rectangles for element selection
+        for(int i=0; i<numOfElements;i++) {
+        		grid[i] = new Rectangle(100 + (50 * i),650,50,100);
+        		g2d.draw(grid[i]);
+        		g2d.drawString(findElement(i), 115 + (50 *i), 670);
+        }
 	}
 	
+	//used to fill in the element selector buttons
+	private String findElement(int s) {
+		switch(s) {
+		case 0: 
+			return "H";
+		case 1:
+			return "He";
+		default:
+			return "NULL";
+		}
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		ex = ex - 30 * Math.cos(angle);
@@ -78,7 +127,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
@@ -86,7 +135,19 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		select = false;
+		int i = 0;
+		System.out.println("Mouse location: ("+e.getX()+","+e.getY()+")");
+		
+		while(select = false) {
+			if(grid[i].contains(e.getX(),e.getY())){
+				currentElement = i;
+				select = true;
+				System.out.println("Selected: " + findElement(i));
+			}
+			i++;
+
+		}
 		
 	}
 
