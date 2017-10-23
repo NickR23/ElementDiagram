@@ -13,8 +13,8 @@ public class DrawingComponent extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 
 	private Timer worldT = new Timer (100,this);
-	float angle = 20;
-	double ex = 230, ey = 190;
+	private float angle = 20;
+	private double ex = 230.0, ey = 190.0;
 	
 	
 	//Paints to JFrame
@@ -39,8 +39,8 @@ public class DrawingComponent extends JPanel implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		ex = (ex - 30*Math.cos(angle));
-		ey = (ey + 30*Math.sin(angle));
+		ex = ex - 30 * Math.cos(angle);
+		ey = ey + 30 * Math.sin(angle);
 		angle-=0.5;
 		repaint();
 	}
