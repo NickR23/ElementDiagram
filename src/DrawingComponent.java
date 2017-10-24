@@ -36,7 +36,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 			elements[i] = new Element();
 			elements[i].setElectrons(inFile.nextInt());
 			elements[i].setProtons(inFile.nextInt());
-			elements[i].setName(inFile.nextLine());
+			elements[i].setName(inFile.nextLine(),inFile.nextLine());
 		}
 		
 		inFile.close();
@@ -100,10 +100,11 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
         for(int i=0; i<numOfElements;i++) {
         		grid[i] = new Rectangle(100 + (50 * i),650,50,100);
         		g2d.draw(grid[i]);
-        		g2d.drawString(findElement(i), 115 + (50 *i), 670);
+        		g2d.drawString(elements[i].getAbreviation(), 115 + (50 *i), 670);
         }
 	}
 	
+<<<<<<< Updated upstream
 	//used to fill in the element selector buttons
 	private String findElement(int s) {
 		switch(s) {
@@ -116,6 +117,9 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		}
 	}
 	
+=======
+
+>>>>>>> Stashed changes
 	public void actionPerformed(ActionEvent e) {
 		ex = ex - 30 * Math.cos(angle);
 		ey = ey + 30 * Math.sin(angle);
@@ -142,6 +146,10 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		while(select = false) {
 			if(grid[i].contains(e.getX(),e.getY())){
 				currentElement = i;
+<<<<<<< Updated upstream
+=======
+				System.out.println("Selected: " + elements[i].getAbreviation());
+>>>>>>> Stashed changes
 				select = true;
 				System.out.println("Selected: " + findElement(i));
 			}
