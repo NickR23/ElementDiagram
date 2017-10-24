@@ -6,6 +6,7 @@ public class Element implements ActionListener{
 	private int numElectrons;
 	private int protons;
 	private String name;
+	private String abreviation;
     private double ex[];
     private double ey[];
     private float angle[];
@@ -43,8 +44,9 @@ public class Element implements ActionListener{
 	public void setProtons(int p) {
 		protons = p;
 	}
-	public void setName(String n) {
+	public void setName(String n,String a) {
 		name = n;
+		abreviation = a;
 	}
 	public Ellipse2D.Double getE(int j){
 		return electron[j];

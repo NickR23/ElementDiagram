@@ -1,4 +1,8 @@
 1 1 Hydrogen
+H
 2 2 Helium
+He
 3 3 Lithium
+Li
 4 4 Beryllium
+Be

@@ -32,7 +32,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		for(int i=0; i< numOfElements;i++) {
 			elements[i] = new Element(getWidth(),getHeight(),inFile.nextInt());
 			elements[i].setProtons(inFile.nextInt());
-			elements[i].setName(inFile.nextLine());
+			elements[i].setName(inFile.nextLine(),inFile.nextLine());
 		}
 		
 		inFile.close();
