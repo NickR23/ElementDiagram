@@ -14,7 +14,7 @@ public class Element implements ActionListener{
     private Ellipse2D.Double[] electron;
     
 	public Element(double width, double height, int numE) {
-		Timer ElementTime  = new Timer (90,this);
+		Timer ElementTime  = new Timer (100,this);
 		numElectrons = numE;
 	    electron = new Ellipse2D.Double[numE];
 	    ex = new double [numE];
@@ -23,18 +23,28 @@ public class Element implements ActionListener{
 	    energy = new int[numE];
 	    
 		for(int i = 0; i<numE;i++) {
-
+			if(i%2==0) {
 				ex[i] = 675;
 				ey[i] = 230;
+			}else {
+				ex[i] = 580;
+				ey[i] = 180;
+			}
 
 			angle[i]=20;
 			electron[i] = new Ellipse2D.Double();
 			electron[i].setFrame(ex[i],ey[i],5,5);
 			if(i <= 1) {
 				energy[i]=1;
+				//Moves the electron over so it lines up in the next orbital.
+				ex[i] += 10;
+				ey[i] -= 10;
 			}
 			else {
 				energy[i]=2;
+				//Moves the electron over so it lines up in the next orbital.
+				ex[i] += 55;
+				ey[i] += 20;
 			}
 		}
 		ElementTime.start();
@@ -79,8 +89,8 @@ public class Element implements ActionListener{
 				angle[i]-=0.5;
 			}
 			else {
-				ex[i] = ex[i] + (30*energy[i]) * Math.cos(angle[i]);
-				ey[i] = ey[i] - (30*energy[i]) * Math.sin(angle[i]);
+				ex[i] = (ex[i] + (30*energy[i]) * Math.sin(angle[i]));
+				ey[i] = ey[i] - (30*energy[i]) * Math.cos(angle[i]);
 				angle[i]+=0.5;
 			}
 				
