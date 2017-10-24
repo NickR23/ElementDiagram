@@ -101,25 +101,10 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
         for(int i=0; i<numOfElements;i++) {
         		grid[i] = new Rectangle(100 + (50 * i),650,50,100);
         		g2d.draw(grid[i]);
-        		g2d.drawString(findElement(i), 115 + (50 *i), 670);
+        		g2d.drawString(elements[i].getAbreviation(), 115 + (50 *i), 670);
         }
 	}
 	
-	//used to fill in the element selector buttons
-	private String findElement(int s) {
-		switch(s) {
-		case 0: 
-			return "H";
-		case 1:
-			return "He";
-		case 2:
-			return "Li";
-		case 3:
-			return "Be";
-		default:
-			return "NULL";
-		}
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		repaint();
@@ -145,7 +130,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 
 			if(grid[i].contains(e.getX(),e.getY())){
 				currentElement = i;
-				System.out.println("Selected: " + findElement(i));
+				System.out.println("Selected: " + elements[i].getAbreviation());
 				select = true;
 			}
 			i++;

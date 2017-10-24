@@ -66,6 +66,9 @@ public class Element implements ActionListener{
 	public String getName() {
 		return name;
 	}
+	public String getAbreviation() {
+		return abreviation;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
