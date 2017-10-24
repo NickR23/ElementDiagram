@@ -12,17 +12,20 @@ public class Element implements ActionListener{
     private int energy[];
     private Ellipse2D.Double[] electron;
     
-	public Element(double Width, double Height, int numE) {
-		Timer ElementTime  = new Timer (500,this);
+	public Element(double width, double height, int numE) {
+		Timer ElementTime  = new Timer (90,this);
 		numElectrons = numE;
 	    electron = new Ellipse2D.Double[numE];
 	    ex = new double [numE];
 	    ey = new double [numE];
 	    angle = new float[numE];
 	    energy = new int[numE];
+	    
 		for(int i = 0; i<numE;i++) {
-			ex[i] = (int)(Width/2)+688;
-			ey[i] = (int)(Height/2)+230;
+
+				ex[i] = 675;
+				ey[i] = 230;
+
 			angle[i]=20;
 			electron[i] = new Ellipse2D.Double();
 			electron[i].setFrame(ex[i],ey[i],5,5);
