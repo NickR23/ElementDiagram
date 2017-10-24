@@ -9,21 +9,29 @@ public class Element implements ActionListener{
     private double ex[];
     private double ey[];
     private float angle[];
+    private int energy[];
     private Ellipse2D.Double[] electron;
     
 	public Element(double Width, double Height, int numE) {
-		Timer ElementTime  = new Timer (90,this);
+		Timer ElementTime  = new Timer (500,this);
 		numElectrons = numE;
 	    electron = new Ellipse2D.Double[numE];
 	    ex = new double [numE];
 	    ey = new double [numE];
 	    angle = new float[numE];
+	    energy = new int[numE];
 		for(int i = 0; i<numE;i++) {
-			ex[i] = (int)(Width/2)+675;
-			ey[i] = (int)(Height/2)+225;
+			ex[i] = (int)(Width/2)+688;
+			ey[i] = (int)(Height/2)+230;
 			angle[i]=20;
 			electron[i] = new Ellipse2D.Double();
 			electron[i].setFrame(ex[i],ey[i],5,5);
+			if(i <= 1) {
+				energy[i]=1;
+			}
+			else {
+				energy[i]=2;
+			}
 		}
 		ElementTime.start();
 	}
@@ -58,13 +66,13 @@ public class Element implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		for(int i = 0; i<numElectrons; i++) {
 			if(i%2 == 0) {
-				ex[i] = ex[i] - 30 * Math.cos(angle[i]);
-				ey[i] = ey[i] + 30 * Math.sin(angle[i]);
+				ex[i] = ex[i] - (30*energy[i]) * Math.cos(angle[i]);
+				ey[i] = ey[i] + (30*energy[i]) * Math.sin(angle[i]);
 				angle[i]-=0.5;
 			}
 			else {
-				ex[i] = ex[i] + 30 * Math.cos(angle[i]);
-				ey[i] = ey[i] - 30 * Math.sin(angle[i]);
+				ex[i] = ex[i] + (30*energy[i]) * Math.cos(angle[i]);
+				ey[i] = ey[i] - (30*energy[i]) * Math.sin(angle[i]);
 				angle[i]+=0.5;
 			}
 				
