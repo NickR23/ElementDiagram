@@ -33,21 +33,19 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
     public void dataLoad() throws IOException{
 		Scanner inFile = new Scanner(file);
 		for(int i=0; i< numOfElements;i++) {
-			elements[i] = new Element();
-			elements[i].setElectrons(inFile.nextInt());
+			elements[i] = new Element(getWidth(),getHeight(),inFile.nextInt());
 			elements[i].setProtons(inFile.nextInt());
 			elements[i].setName(inFile.nextLine());
 		}
 		
 		inFile.close();
 		System.out.println("Data Loaded");
-		//init scene timer
     }
     
 
     public DrawingComponent() {
     	
-    		worldT  = new Timer (100,this);
+    		worldT  = new Timer (90,this);
     		angle = 20;
     		ex = (int)(getWidth()/2)+675;
     		ey = (int)(getHeight()/2)+225;
@@ -67,6 +65,8 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 			System.out.println("Data failed to load");
 		}
     }
+    
+    
 	//Paints to JFrame
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -80,14 +80,18 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		g2d.setColor(Color.WHITE);
 		g2d.fillOval(getWidth()/2, (getHeight()/2)-200, 50, 50);
 		
+		//displays electrons for currentElement
 		g2d.setColor(Color.YELLOW);
-		Ellipse2D.Double electron = new Ellipse2D.Double(ex,ey,5,5);
-		g2d.fill(electron);
+		for(int j = 0; j<elements[currentElement].getNumElectrons(); j++) {
+			g2d.fill(elements[currentElement].getE(j));
+		}
+			
+		
 		
 		//displays selected element data
 		g2d.drawString("Current element: " + elements[currentElement].getName(), 500, 500);
 		g2d.drawString("Number of protons: " + elements[currentElement].getProtons(), 500, 515);
-		g2d.drawString("Number of electrons: " + elements[currentElement].getElectrons(), 500, 530);
+		g2d.drawString("Number of electrons: " + elements[currentElement].getNumElectrons(), 500, 530);
 		g2d.drawString("Electron postion(s): " + ex + "," + ey, 500, 545);
 
         //Creates a "text console"
@@ -139,11 +143,11 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		int i = 0;
 		System.out.println("Mouse location: ("+e.getX()+","+e.getY()+")");
 		
-		while(select == false) {
-			System.out.println("Selected: " + findElement(i));
+		while(select == false && i<numOfElements) {
 
 			if(grid[i].contains(e.getX(),e.getY())){
 				currentElement = i;
+				System.out.println("Selected: " + findElement(i));
 				select = true;
 			}
 			i++;
