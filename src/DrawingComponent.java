@@ -1,11 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
-import java.lang.Math;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,8 +16,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 	private static final long serialVersionUID = 1L;
 	
 	private Timer worldT;
-	private float angle;
-	private double ex,ey;
+
 	private int numOfElements;
 	private int currentElement;
 	private boolean select;
@@ -45,10 +42,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 
     public DrawingComponent() {
     	
-    		worldT  = new Timer (90,this);
-    		angle = 20;
-    		ex = (int)(getWidth()/2)+675;
-    		ey = (int)(getHeight()/2)+225;
+    		worldT  = new Timer (50,this);
     		numOfElements = 2;
     		currentElement = 0;
     		select = false;
@@ -92,7 +86,10 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 		g2d.drawString("Current element: " + elements[currentElement].getName(), 500, 500);
 		g2d.drawString("Number of protons: " + elements[currentElement].getProtons(), 500, 515);
 		g2d.drawString("Number of electrons: " + elements[currentElement].getNumElectrons(), 500, 530);
-		g2d.drawString("Electron postion(s): " + ex + "," + ey, 500, 545);
+		for(int j = 0; j<elements[currentElement].getNumElectrons(); j++) {
+			g2d.drawString("Postion of electron " + (j+1) + " :" + elements[currentElement].getEX(j)
+							+","+elements[currentElement].getEY(j), 500, 545 + (j * 15));
+		}
 
         //Creates a "text console"
         g2d.setColor(Color.WHITE);
@@ -121,9 +118,6 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		ex = ex - 30 * Math.cos(angle);
-		ey = ey + 30 * Math.sin(angle);
-		angle-=0.5;
 		repaint();
 	}
 
