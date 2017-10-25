@@ -83,17 +83,18 @@ public class Element implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for(int i = 0; i<numElectrons; i++) {
+		
 			if(i%2 == 0) {
 				ex[i] = ex[i] - (30*energy[i]) * Math.cos(angle[i]);
 				ey[i] = ey[i] + (30*energy[i]) * Math.sin(angle[i]);
-				angle[i]-=0.5;
+				angle[i] -= 0.5;
 			}
 			else {
 				ex[i] = (ex[i] + (30*energy[i]) * Math.sin(angle[i]));
 				ey[i] = ey[i] - (30*energy[i]) * Math.cos(angle[i]);
 				angle[i]+=0.5;
 			}
-				
+
 			electron[i].setFrame(ex[i],ey[i],5,5);
 			
 		}

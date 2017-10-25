@@ -43,7 +43,7 @@ public class DrawingComponent extends JPanel implements ActionListener, MouseLis
     public DrawingComponent() {
     	
     		worldT  = new Timer (50,this);
-    		numOfElements = 4;
+    		numOfElements = 5;
     		currentElement = 0;
     		select = false;
     		elements = new Element[numOfElements];
